@@ -22,6 +22,7 @@ export function FormRapportActivite() {
   };
 
   const handleFileChange = (e, fieldName) => {
+    //Add fileData in keys of array 
     setFormData({
       ...formData,
       [fieldName]: e.target.files,
@@ -30,12 +31,12 @@ export function FormRapportActivite() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Effectuez ici l'action souhaitée avec les données du formulaire, y compris les fichiers.
+
     console.log(formData);
   };
   return (
     <div className="container-fluid">
-      <h1>Rapport d'activite</h1>
+      <h1>Mission Développement Durable et Zéro Déchet</h1>
       <form onSubmit={handleSubmit}>
         <div className="d-flex flex-row mt-4">
           <div className="mx-4">
