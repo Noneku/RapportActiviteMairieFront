@@ -1,62 +1,93 @@
 import React, { useState } from "react";
 import { Table, Container, Row, Col, Card, Button } from "react-bootstrap";
 
-function AdminDashboard() {
+export function DashBoardAdmin() {
   const [user, setUser] = useState({
     username: "Nom de l'Utilisateur",
   });
 
-  const data = [
-    {
-      date: "2023-10-18",
-      action: "Modification",
-      pole: "Ressources Humaines",
-      index: 1,
-    },
-    {
-      date: "2023-10-17",
-      action: "Suppression",
-      pole: "Finance",
-      index: 2,
-    },
-  ];
+  const [items, setItems] = useState([
+    { id: 1, name: 'Cabinet', description: 'Service Test' },
+    { id: 2, name: 'Pôle test', description: 'Service Direction' },
+  ]);
+
+  const handleDelete = (id) => {
+    setItems(items.filter((item) => item.id !== id));
+  };
 
   return (
-    <Container className="mt-5">
-      <Row>
-        <Col>
-          <Card>
-            <Card.Header>
-              <h4>Bienvenue, {user.username}!</h4>
-            </Card.Header>
-            <Card.Body>
-              <h5>Tableau de Bord Administrateur</h5>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Action</th>
-                    <th>Pôle</th>
-                    <th>Index</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.date}</td>
-                      <td>{item.action}</td>
-                      <td>{item.pole}</td>
-                      <td>{item.index}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
+    <Container fluid className="h-100">
+      <Row className="h-100">
+        {/* Barre de navigation à gauche (colonne fixe sur les écrans moyens et plus grands) */}
+        <Col md={2} className="bg-dark text-light d-flex flex-column">
+          <h2 className="text-center p-4">Admin Panel</h2>
+          <ul className="nav flex-column">
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Option 1
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Option 2
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Option 3
+              </a>
+            </li>
+          </ul>
+        </Col>
+
+        {/* Contenu de la page à droite (colonne prenant toute la largeur sur les écrans moyens et plus grands) */}
+        <Col md={10} className="p-4">
+          <h1>Bienvenue dans le panneau d'administration</h1>
+          <p>Ceci est le contenu de la page d'administration.</p>
+
+          <h2>Rapport d'activité</h2>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Pôle</th>
+                <th>Index</th>
+                <th className="w-auto">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.description}</td>
+                  <td className="d-flex flex-row justify-content-around">
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      Supprimer
+                    </Button>
+                    <Button
+                      variant="warning"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      Editer
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      Télécharger
+                    </Button>
+                    {/* Ajoutez ici d'autres boutons pour les actions d'édition, etc. */}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </Col>
       </Row>
     </Container>
   );
 }
-
-export default AdminDashboard;
