@@ -7,15 +7,14 @@ import { ListURL } from './ListURL.jsx';
 export function DashBoardAdmin() {
   return (
     <BrowserRouter>
-    <div className="d-flex h-100">
+      <div className="d-flex h-100">
         <NavBarAdmin />
-        <ListRapportActivite/>
-    </div>
-
-      <Routes>
-        <Route path="/ListURL" element={<ListURL />} />
-        <Route path="/ListRapport" element={<ListURL />} />
-      </Routes>
+        <Routes>
+          <Route path="/AdminPanel" element={<ListRapportActivite />} />
+          <Route path="/ListURL" element={<ListURL />} />
+          <Route path="/ListRapportActivite" element={<ListRapportActivite />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

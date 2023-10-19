@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 export function FormRapportActivite() {
+  
   const [formData, setFormData] = useState({
     mission: "",
     indicateur: "",

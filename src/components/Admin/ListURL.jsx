@@ -4,8 +4,8 @@ import { Table, Container, Row, Col, Card, Button } from "react-bootstrap";
 
 export function ListURL() {
   const [items, setItems] = useState([
-    { id: 1, name: "Cabinet", description: "Service Test" },
-    { id: 2, name: "Pôle test", description: "Service Direction" },
+    { id: 1, name: "www.test1.com", description: "Service Test" },
+    { id: 2, name: "www.test2.com", description: "Service Direction" },
   ]);
 
   const handleDelete = (id) => {
@@ -13,7 +13,7 @@ export function ListURL() {
   };
 
   return (
-    <div className=" w-25 p-4">
+    <div className="container-fluid">
       <h1>Bienvenue dans le panneau d'administration</h1>
       <p>Ceci est le contenu de la page d'administration.</p>
 

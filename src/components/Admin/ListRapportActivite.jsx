@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Table, Container, Row, Col, Card, Button } from "react-bootstrap";
+import SortInput from "../Buttons/SortInput";
 
 export function ListRapportActivite() {
   const [user, setUser] = useState({
@@ -16,12 +17,13 @@ export function ListRapportActivite() {
   };
 
   return (
-      <div className="p-4">
+    <div className="container-fluid">
         <h1>Bienvenue dans le panneau d'administration</h1>
         <p>Ceci est le contenu de la page d'administration.</p>
 
         <h2>Rapport d'activité</h2>
-        <Table striped bordered hover>
+        <SortInput/>
+        <Table striped bordered hover className="mt-3">
           <thead>
             <tr>
               <th>ID</th>
