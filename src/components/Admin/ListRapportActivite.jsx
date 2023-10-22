@@ -1,28 +1,43 @@
 import React, { useState } from "react";
-import { Table, Container, Row, Col, Card, Button } from "react-bootstrap";
-import SortInput from "../Buttons/SortInput";
+import { Table, Button } from "react-bootstrap";
+import DropDownInput from "../Buttons/DropDownInput";
 
 export function ListRapportActivite() {
-  const [user, setUser] = useState({
-    username: "Nom de l'Utilisateur",
-  });
 
-  const [items, setItems] = useState([
-    { id: 1, name: "Cabinet", description: "Service Test" },
-    { id: 2, name: "Pôle test", description: "Service Direction" },
+  //Call Ajax qui apelle tous les poles
+  const poles = [
+    { id: 1, pole: "Cabinet" },
+    { id: 2, pole: "Banque ABC" },
+    { id: 3, pole: "Restaurant Le Bon Goût" },
+    { id: 4, pole: "École Primaire Sunnydale" },
+    { id: 5, pole: "Service Direction" }
+  ];
+
+  const [rapports, setRapports] = useState(
+    [
+      { id: 1, name: "Cabinet", description: "Service Direction" },
+      { id: 2, name: "Pôle test", description: "Service Direction" },
+      { id: 3, name: "Société XYZ", description: "Service de comptabilité" },
+      { id: 4, name: "Banque ABC", description: "Service de gestion financière" },
+      { id: 8, name: "Banque ABC", description: "test" },
+      { id: 5, name: "Restaurant Le Bon Goût", description: "Service de restauration" },
+      { id: 6, name: "Restaurant Le Bon Goût", description: "Service éducatif" },
+      { id: 7, name: "Restaurant Le Bon Goût", description: "Service de soins de santé" }
   ]);
+    
 
   const handleDelete = (id) => {
     setItems(items.filter((item) => item.id !== id));
   };
 
   return (
-    <div className="container-fluid">
+    <div className="d-flex flex-row">
+      <div className="container-fluid">
         <h1>Bienvenue dans le panneau d'administration</h1>
         <p>Ceci est le contenu de la page d'administration.</p>
 
         <h2>Rapport d'activité</h2>
-        <SortInput/>
+        <DropDownInput titleDropDown={"Trier par pôle"} menuDropDown={ poles } />
         <Table striped bordered hover className="mt-3">
           <thead>
             <tr>
@@ -33,7 +48,7 @@ export function ListRapportActivite() {
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => (
+            {rapports.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
@@ -57,12 +72,12 @@ export function ListRapportActivite() {
                   >
                     Télécharger
                   </Button>
-                  {/* Ajoutez ici d'autres boutons pour les actions d'édition, etc. */}
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
       </div>
+    </div>
   );
 }

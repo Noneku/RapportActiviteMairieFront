@@ -1,20 +1,22 @@
 import React from "react";
 import NavBarAdmin from "./NavBarAdmin";
 import { ListRapportActivite } from "./ListRapportActivite";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ListURL } from './ListURL.jsx';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ListURL } from "./ListURL.jsx";
 
 export function DashBoardAdmin() {
   return (
-    <BrowserRouter>
-      <div className="d-flex h-100">
-        <NavBarAdmin />
-        <Routes>
-          <Route path="/AdminPanel" element={<ListRapportActivite />} />
-          <Route path="/ListURL" element={<ListURL />} />
-          <Route path="/ListRapportActivite" element={<ListRapportActivite />} />
-        </Routes>
+    <div className="d-flex h-100">
+      <NavBarAdmin />
+      <div className="flex-grow-1">
+          <Routes>
+            <Route
+              path="/ListRapportActivite"
+              element={<ListRapportActivite />}
+            />
+            <Route path="/ListURL" element={<ListURL />} />
+          </Routes>
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
