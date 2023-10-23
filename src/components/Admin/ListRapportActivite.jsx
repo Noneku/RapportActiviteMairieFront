@@ -1,36 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import DropDownInput from "../Buttons/DropDownInput";
 import APIService from "../../services/APIService";
 
 export function ListRapportActivite() {
 
-  //Call Ajax qui apelle tous les poles
+  const [poles, setPoles] = useState([]); // State to store the "Poles"
+  const [rapports, setRapports] = useState([]); // State to store the filter all "Rapports"
+  const [rapportsOriginaux, setRapportsOriginaux] = useState([]); // State to store the orignal "Rapport" PS: This state is use for the filter array
 
-  const poles = [
-    { id: 1, poleNom: "Cabinet" },
-    { id: 2, poleNom: "Banque ABC" },
-    { id: 3, poleNom: "Restaurant Le Bon Goût" },
-    { id: 4, poleNom: "École Primaire Sunnydale" },
-    { id: 5, poleNom: "Service Direction" }
-  ];
+  // Load API query "Poles & Rapports"
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const polesData = await APIService.getPoles();
+        const rapportsData = await APIService.getRapports();
+        
+        setPoles(polesData);
+        setRapports(rapportsData);
+        setRapportsOriginaux(rapportsData);
 
-  const originalRapports = [
-    { id: 1, name: "Cabinet", description: "Service Direction" },
-    { id: 2, name: "Pôle test", description: "Service Direction" },
-    { id: 3, name: "Société XYZ", description: "Service de comptabilité" },
-    { id: 4, name: "Banque ABC", description: "Service de gestion financière" },
-    { id: 8, name: "Banque ABC", description: "test" },
-    { id: 5, name: "Restaurant Le Bon Goût", description: "Service de restauration" },
-    { id: 6, name: "Restaurant Le Bon Goût", description: "Service éducatif" },
-    { id: 7, name: "Restaurant Le Bon Goût", description: "Service de soins de santé" }
-  ];
-
-  const [rapports, setRapports] = useState(originalRapports);
-
-  // const handleDelete = (id) => {
-  //   setItems(rapports.filter((item) => item.id !== id));
-  // };
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    fetchData();
+  }, []);
+  
+  
+  // Function for filter the array "rapportsOriginaux"
+  const handleFilterRapports = (selectedPole) => {
+    if (selectedPole === "Tous") {
+      setRapports(rapportsOriginaux); // Call all rapports
+    } else {
+      const filteredRapports = rapportsOriginaux.filter((rapport) => rapport.pole === selectedPole);
+      setRapports(filteredRapports);
+    }
+  };
 
   return (
     <div className="d-flex flex-row">
@@ -39,7 +46,7 @@ export function ListRapportActivite() {
         <p>Ceci est le contenu de la page d'administration.</p>
 
         <h2>Rapport d'activité</h2>
-        <DropDownInput titleDropDown={"Trier par pôle"} menuDropDown={ poles } setterArray={ setRapports } originalData={originalRapports}/>
+        <DropDownInput titleDropDown={"Trier par pôle"} menuDropDown={poles} handleFilter={handleFilterRapports} />
         <Table striped bordered hover className="mt-3">
           <thead>
             <tr>
@@ -53,25 +60,16 @@ export function ListRapportActivite() {
             {rapports.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.description}</td>
+                <td>{item.pole}</td>
+                <td>{item.index}</td>
                 <td className="d-flex flex-row justify-content-around">
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDelete(item.id)}
-                  >
+                  <Button variant="danger" onClick={() => handleDelete(item.id)}>
                     Supprimer
                   </Button>
-                  <Button
-                    variant="warning"
-                    onClick={() => handleDelete(item.id)}
-                  >
+                  <Button variant="warning" onClick={() => handleDelete(item.id)}>
                     Editer
                   </Button>
-                  <Button
-                    variant="primary"
-                    onClick={() => handleDelete(item.id)}
-                  >
+                  <Button variant="primary" onClick={() => handleDelete(item.id)}>
                     Télécharger
                   </Button>
                 </td>
