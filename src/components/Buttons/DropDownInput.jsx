@@ -4,8 +4,8 @@ import { Button, Dropdown } from 'react-bootstrap';
 
 export default function DropDownInput({ titleDropDown, items, handleFilter, attributeItems, rapportFilterBy }) {
   
-  const handleOnClick = (value) => {
-    handleFilter(value, rapportFilterBy); // Compare the element in MenuDropdown(value) by the "pole" of rapports(filterBy)
+  const handleOnClick = (valueMenu) => {
+    handleFilter(valueMenu, rapportFilterBy); // Compare the element in MenuDropdown(value) by the "pole" of rapports(filterBy)
   };
 
   return (
