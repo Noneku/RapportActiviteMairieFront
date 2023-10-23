@@ -1,34 +1,36 @@
 import React, { useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import DropDownInput from "../Buttons/DropDownInput";
+import APIService from "../../services/APIService";
 
 export function ListRapportActivite() {
 
   //Call Ajax qui apelle tous les poles
+
   const poles = [
-    { id: 1, pole: "Cabinet" },
-    { id: 2, pole: "Banque ABC" },
-    { id: 3, pole: "Restaurant Le Bon Goût" },
-    { id: 4, pole: "École Primaire Sunnydale" },
-    { id: 5, pole: "Service Direction" }
+    { id: 1, poleNom: "Cabinet" },
+    { id: 2, poleNom: "Banque ABC" },
+    { id: 3, poleNom: "Restaurant Le Bon Goût" },
+    { id: 4, poleNom: "École Primaire Sunnydale" },
+    { id: 5, poleNom: "Service Direction" }
   ];
 
-  const [rapports, setRapports] = useState(
-    [
-      { id: 1, name: "Cabinet", description: "Service Direction" },
-      { id: 2, name: "Pôle test", description: "Service Direction" },
-      { id: 3, name: "Société XYZ", description: "Service de comptabilité" },
-      { id: 4, name: "Banque ABC", description: "Service de gestion financière" },
-      { id: 8, name: "Banque ABC", description: "test" },
-      { id: 5, name: "Restaurant Le Bon Goût", description: "Service de restauration" },
-      { id: 6, name: "Restaurant Le Bon Goût", description: "Service éducatif" },
-      { id: 7, name: "Restaurant Le Bon Goût", description: "Service de soins de santé" }
-  ]);
-    
+  const originalRapports = [
+    { id: 1, name: "Cabinet", description: "Service Direction" },
+    { id: 2, name: "Pôle test", description: "Service Direction" },
+    { id: 3, name: "Société XYZ", description: "Service de comptabilité" },
+    { id: 4, name: "Banque ABC", description: "Service de gestion financière" },
+    { id: 8, name: "Banque ABC", description: "test" },
+    { id: 5, name: "Restaurant Le Bon Goût", description: "Service de restauration" },
+    { id: 6, name: "Restaurant Le Bon Goût", description: "Service éducatif" },
+    { id: 7, name: "Restaurant Le Bon Goût", description: "Service de soins de santé" }
+  ];
 
-  const handleDelete = (id) => {
-    setItems(items.filter((item) => item.id !== id));
-  };
+  const [rapports, setRapports] = useState(originalRapports);
+
+  // const handleDelete = (id) => {
+  //   setItems(rapports.filter((item) => item.id !== id));
+  // };
 
   return (
     <div className="d-flex flex-row">
@@ -37,7 +39,7 @@ export function ListRapportActivite() {
         <p>Ceci est le contenu de la page d'administration.</p>
 
         <h2>Rapport d'activité</h2>
-        <DropDownInput titleDropDown={"Trier par pôle"} menuDropDown={ poles } />
+        <DropDownInput titleDropDown={"Trier par pôle"} menuDropDown={ poles } setterArray={ setRapports } originalData={originalRapports}/>
         <Table striped bordered hover className="mt-3">
           <thead>
             <tr>
