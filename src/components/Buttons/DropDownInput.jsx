@@ -1,9 +1,9 @@
-import React from 'react'
-import { Button, Dropdown } from "react-bootstrap";
+import React from 'react';
+import { Button, Dropdown } from 'react-bootstrap';
 
-export default function DropDownInput({ titleDropDown, menuDropDown, handleFilter }) {
+export default function DropDownInput({ titleDropDown, items, handleFilter, attribute }) {
   const handleOnClick = (value) => {
-    handleFilter(value); // Appelez la fonction de filtrage avec la valeur sélectionnée
+    handleFilter(value, attribute); // Appelez la fonction de filtrage avec la valeur sélectionnée
   };
 
   return (
@@ -13,12 +13,12 @@ export default function DropDownInput({ titleDropDown, menuDropDown, handleFilte
           {titleDropDown}
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item key="Tous" onClick={() => handleOnClick("Tous")}>
+          <Dropdown.Item onClick={() => handleOnClick("Tous")}>
             Tous
           </Dropdown.Item>
-          {menuDropDown.map((element) => (
-            <Dropdown.Item key={element.id} onClick={() => handleOnClick(element.poleNom)}>
-              {element.poleNom}
+          {items.map((element) => (
+            <Dropdown.Item key={element.id} onClick={() => handleOnClick(element[attribute])}>
+              {element[attribute]}
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>

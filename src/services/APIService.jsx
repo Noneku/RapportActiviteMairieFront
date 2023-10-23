@@ -19,6 +19,15 @@ class APIService {
             throw error;
         }
     }
+
+    static async getIndex() {
+        try {
+            const response = await axios.get('https://mairie-roubaix.wiremockapi.cloud/index');
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export default APIService;
