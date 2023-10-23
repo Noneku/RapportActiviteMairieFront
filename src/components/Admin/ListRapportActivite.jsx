@@ -29,16 +29,19 @@ export function ListRapportActivite() {
     fetchData();
   }, []);
 
-  // Function for filter the array "rapportsOriginaux"
-const handleFilter = (selectedValue, attribute) => {
-  if (selectedValue === "Tous") {
+// Function for filter the array "rapportsOriginaux"
+const handleFilter = (selectedMenuValue, filterBy) => {
+  if (selectedMenuValue === "Tous") {
     setRapports(rapportsOriginaux); // Call all rapports
   } else {
     const filteredRapports = rapportsOriginaux.filter(
-      (rapport) => rapport[attribute] === selectedValue
+      (rapport) => rapport[filterBy] === selectedMenuValue
     );
     setRapports(filteredRapports);
+
+    console.log(selectedMenuValue);
   }
+  console.log(rapports);
 };
 
   return (
@@ -49,17 +52,19 @@ const handleFilter = (selectedValue, attribute) => {
         <h2>Rapport d'activité</h2>
         <DropDownInput
           titleDropDown={"Trier par poles"}
-          items={poles} // Le tableau d'éléments basé sur l'index
-          handleFilter={handleFilter} // La fonction de filtrage par index
-          attribute="poleNom" // Spécifiez l'attribut à utiliser
+          items={poles} // Le tableau d'éléments basé sur poles
+          handleFilter={handleFilter} // Call function for filter by 
+          attributeItems={"poleNom"} // Attribut of Poles
+          rapportFilterBy={"pole"} //Attribut of Rapports
         />
 
-        {/* <DropDownInput
+        <DropDownInput
           titleDropDown={"Trier par index"}
           items={index} // Le tableau d'éléments basé sur l'index
           handleFilter={handleFilter} // La fonction de filtrage par index
-          attribute="indexNom" // Spécifiez l'attribut à utiliser
-        /> */}
+          attributeItems={"indexNom"} // Spécifiez l'attribut à utiliser
+          rapportFilterBy={"index"} 
+        />
         {/* <DropDownInput titleDropDown={"Trier par index"} /> */}
         <Table striped bordered hover className="mt-3">
           <thead>
@@ -72,6 +77,7 @@ const handleFilter = (selectedValue, attribute) => {
             </tr>
           </thead>
           <tbody>
+            {/* Display all rapports */}
             {rapports.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>

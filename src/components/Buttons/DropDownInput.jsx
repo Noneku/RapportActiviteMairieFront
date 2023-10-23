@@ -1,9 +1,11 @@
+import { select } from '@material-tailwind/react';
 import React from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 
-export default function DropDownInput({ titleDropDown, items, handleFilter, attribute }) {
+export default function DropDownInput({ titleDropDown, items, handleFilter, attributeItems, rapportFilterBy }) {
+  
   const handleOnClick = (value) => {
-    handleFilter(value, attribute); // Appelez la fonction de filtrage avec la valeur sélectionnée
+    handleFilter(value, rapportFilterBy); // Compare the element in MenuDropdown(value) by the "pole" of rapports(filterBy)
   };
 
   return (
@@ -16,11 +18,13 @@ export default function DropDownInput({ titleDropDown, items, handleFilter, attr
           <Dropdown.Item onClick={() => handleOnClick("Tous")}>
             Tous
           </Dropdown.Item>
+          {/* Menu Dropdown */}
           {items.map((element) => (
-            <Dropdown.Item key={element.id} onClick={() => handleOnClick(element[attribute])}>
-              {element[attribute]}
+            <Dropdown.Item key={element.id} onClick={() => handleOnClick(element[attributeItems])}>
+              {element[attributeItems]}
             </Dropdown.Item>
           ))}
+          {/* Menu Dropdown */}
         </Dropdown.Menu>
       </Dropdown>
     </div>
